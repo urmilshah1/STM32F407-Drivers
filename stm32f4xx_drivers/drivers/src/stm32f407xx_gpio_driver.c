@@ -6,7 +6,7 @@
  */
 
 
-#include "stm32f407xx_gpio_driver.h"
+#include "stm32f407xx.h"
 
 
 
@@ -125,7 +125,11 @@ void GPIO_PeriClockControl(GPIO_RegDef_t *pGPIOx, uint8_t EnorDi)
 */
 void GPIO_Init(GPIO_Handle_t *pGPIOHandle)
 {
-	uint8_t temp = 0;
+	uint32_t temp = 0;
+
+	//Enable the peripheral clock
+	GPIO_PeriClockControl(pGPIOHandle->pGPIOx, ENABLE);
+
 	// 1. Configure the mode of the pin
 	if(pGPIOHandle->GPIO_PinConfig.GPIO_PinMode <= GPIO_MODE_ANALOG)
 	{
