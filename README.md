@@ -8,3 +8,8 @@ The first section is the driver header files and the other is the driver source 
 The header and source files can be used to create any application using stm32f407. 
 
 
+## Features
+
+- Supports External Interrupts
+- Supports Full Duplex, Half Duplex and Simplex Communications for SPI
+
