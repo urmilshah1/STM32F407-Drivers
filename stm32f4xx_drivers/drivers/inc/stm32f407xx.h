@@ -219,6 +219,26 @@ typedef struct {
 
 
 /*
+ * ***********************************Peripheral register definition structure for I2C***********************************
+ *
+ */
+
+typedef struct
+{
+  __vo uint32_t CR1;        /*CR1 memory remap register address offset     										Address offset: 0x00 */
+  __vo uint32_t CR2;        /*CR2 memory remap register address offset   										Address offset: 0x04 */
+  __vo uint32_t OAR1;       /*OAR1 memory remap register address offset  										Address offset: 0x08 */
+  __vo uint32_t OAR2;       /*OAR2 memory remap register address offset  										Address offset: 0x0C */
+  __vo uint32_t DR;         /*DR memory remap register address offset    										Address offset: 0x10 */
+  __vo uint32_t SR1;        /*SR1 memory remap register address offset 										Address offset: 0x14 */
+  __vo uint32_t SR2;        /*SR2 memory remap register address offset   										Address offset: 0x18 */
+  __vo uint32_t CCR;        /*CCR memory remap register address offset   										Address offset: 0x1C */
+  __vo uint32_t TRISE;      /*TRISE memory remap register address offset   										Address offset: 0x20 */
+  __vo uint32_t FLTR;       /*FLTR memory remap register address offset     										Address offset: 0x24 */
+}I2C_RegDef_t;
+
+
+/*
  * Peripheral definitions (peripheral base address type casted to xxx_RegDef_t
  */
 
@@ -275,7 +295,7 @@ typedef struct {
 #define SPI1_PCLK_EN()      (RCC->APB2ENR |= (1 << 12))
 #define SPI2_PCLK_EN()      (RCC->APB1ENR |= (1 << 14))
 #define SPI3_PCLK_EN()      (RCC->APB1ENR |= (1 << 15))
-#define SPI4_PCLK_EN()       (RCC->APB2ENR |= (1 << 13))
+#define SPI4_PCLK_EN()      (RCC->APB2ENR |= (1 << 13))
 
 /*
  * ****************************Clock Enable macros for USARTx Peripherals*****************************
@@ -398,6 +418,8 @@ typedef struct {
 #define RESET 			DISABLE
 #define GPIO_PIN_SET 	SET
 #define GPIO_PIN_RESET 	RESET
+#define FLAG_RESET      RESET
+#define FLAG_SET		SET
 
 
 /**************************************************************************
@@ -406,51 +428,116 @@ typedef struct {
 /*
  * Bit position definitions SPI_CR1
  */
-#define SPI_CR1_CPHA 		0
-#define SPI_CR1_CPOL 		1
-#define SPI_CR1_MSTR		2
-#define SPI_CR1_BR			3
-#define SPI_CR1_SPE			6
-#define SPI_CR1_LSBFIRST	7
-#define SPI_CR1_SSI			8
-#define SPI_CR1_SSM			9
-#define SPI_CR1_RXONLY		10
-#define SPI_CR1_DFF			11
-#define SPI_CR1_CRCNEXT		12
-#define SPI_CR1_CRCEN		13
-#define SPI_CR1_BIDIODE		14
-#define SPI_CR1_BIDIMODE	15
+#define SPI_CR1_CPHA 		0 /*TODO*/
+#define SPI_CR1_CPOL 		1 /*TODO*/
+#define SPI_CR1_MSTR		2 /*TODO*/
+#define SPI_CR1_BR			3 /*TODO*/
+#define SPI_CR1_SPE			6 /*TODO*/
+#define SPI_CR1_LSBFIRST	7 /*TODO*/
+#define SPI_CR1_SSI			8 /*TODO*/
+#define SPI_CR1_SSM			9 /*TODO*/
+#define SPI_CR1_RXONLY		10 /*TODO*/
+#define SPI_CR1_DFF			11 /*TODO*/
+#define SPI_CR1_CRCNEXT		12 /*TODO*/
+#define SPI_CR1_CRCEN		13 /*TODO*/
+#define SPI_CR1_BIDIODE		14 /*TODO*/
+#define SPI_CR1_BIDIMODE	15/*TODO*/
 
 /*
  * Bit position definitions SPI_CR2
  */
 
-#define SPI_CR2_RXMAEN 		0
-#define SPI_CR2_TXMAEN 		1
-#define SPI_CR2_SSOE		2
-#define SPI_CR2_FRF			4
-#define SPI_CR2_ERRIE		5
-#define SPI_CR2_RXNEIE		6
-#define SPI_CR2_TXEIE		7
+#define SPI_CR2_RXMAEN 		0 /*This is the bit positions for SPI CR2 Rx buffer DMA enable (page 918/1751)*/
+#define SPI_CR2_TXMAEN 		1 /*This is the bit positions for SPI CR2 Tx buffer DMA enable (page 918/1751)*/
+#define SPI_CR2_SSOE		2 /*This is the bit positions for SPI CR2 SS output enable  (page 918/1751)*/
+#define SPI_CR2_FRF			4 /*This is the bit positions for SPI CR2 Frame format  (page 918/1751)*/
+#define SPI_CR2_ERRIE		5 /*This is the bit positions for SPI CR2 Error interrupt enable   (page 918/1751)*/
+#define SPI_CR2_RXNEIE		6 /*This is the bit positions for SPI CR2 Rx buffer not empty interrupt enable (page 918/1751)*/
+#define SPI_CR2_TXEIE		7 /*This is the bit positions for SPI CR2 Tx buffer empty interrupt enable   (page 918/1751)*/
 
 
 /*
  * Bit position definitions SPI_SR
  */
 
-#define SPI_SR_RXNE			0
-#define SPI_SR_TXE			1
-#define SPI_SR_CHSIDE		2
-#define SPI_SR_UDR			3
-#define SPI_SR_CRC_ERR		4
-#define SPI_SR_MODF			5
-#define SPI_SR_OVR			6
-#define SPI_SR_BSY			7
-#define SPI_SR_FRE			8
+#define SPI_SR_RXNE			0	/*This is the bit positions for SPI CR1 Receive Buffer empty (page 919/1751)*/
+#define SPI_SR_TXE			1 	/*This is the bit positions for SPI CR1 Transmit buffer empty (page 919/1751)*/
+#define SPI_SR_CHSIDE		2  /*This is the bit positions for SPI CR1 Channel Side (page 919/1751)*/
+#define SPI_SR_UDR			3  /*This is the bit positions for SPI CR1  Under run flag (page 919/1751)*/
+#define SPI_SR_CRC_ERR		4  /*This is the bit positions for SPI CR1  CRC error flag (page 919/1751)*/
+#define SPI_SR_MODF			5   /*This is the bit positions for SPI CR1  Mode fault (page 919/1751)*/
+#define SPI_SR_OVR			6  /*This is the bit positions for SPI CR1  Overrun flag (page 919/1751)*/
+#define SPI_SR_BSY			7  /*This is the bit positions for SPI CR1  Busy flag (page 919/1751)*/
+#define SPI_SR_FRE			8  /*This is the bit positions for SPI CR1  Frame format error (page 919/1751)*/
+
+
+/******************************************************************************************
+ *Bit position definitions of I2C peripheral
+ ******************************************************************************************/
+/*
+ * Bit position definitions I2C_CR1
+ */
+#define I2C_CR1_PE						0
+#define I2C_CR1_NOSTRETCH  				7
+#define I2C_CR1_START 					8
+#define I2C_CR1_STOP  				 	9
+#define I2C_CR1_ACK 				 	10
+#define I2C_CR1_SWRST  				 	15
+
+/*
+ * Bit position definitions I2C_CR2
+ */
+#define I2C_CR2_FREQ				 	0
+#define I2C_CR2_ITERREN				 	8
+#define I2C_CR2_ITEVTEN				 	9
+#define I2C_CR2_ITBUFEN 			    10
+
+/*
+ * Bit position definitions I2C_OAR1
+ */
+#define I2C_OAR1_ADD0    				 0
+#define I2C_OAR1_ADD71 				 	 1
+#define I2C_OAR1_ADD98  			 	 8
+#define I2C_OAR1_ADDMODE   			 	15
+
+/*
+ * Bit position definitions I2C_SR1
+ */
+
+#define I2C_SR1_SB 					 	0
+#define I2C_SR1_ADDR 				 	1
+#define I2C_SR1_BTF 					2
+#define I2C_SR1_ADD10 					3
+#define I2C_SR1_STOPF 					4
+#define I2C_SR1_RXNE 					6
+#define I2C_SR1_TXE 					7
+#define I2C_SR1_BERR 					8
+#define I2C_SR1_ARLO 					9
+#define I2C_SR1_AF 					 	10
+#define I2C_SR1_OVR 					11
+#define I2C_SR1_TIMEOUT 				14
+
+/*
+ * Bit position definitions I2C_SR2
+ */
+#define I2C_SR2_MSL						0
+#define I2C_SR2_BUSY 					1
+#define I2C_SR2_TRA 					2
+#define I2C_SR2_GENCALL 				4
+#define I2C_SR2_DUALF 					7
+
+/*
+ * Bit position definitions I2C_CCR
+ */
+#define I2C_CCR_CCR 					 0
+#define I2C_CCR_DUTY 					14
+#define I2C_CCR_FS  				 	15
+
 
 
 #include "stm32f407xx_gpio_driver.h"
 #include "stm32f407xx_spi_driver.h"
+#include "stm32f407xx_i2c_driver.h"
 
 
 #endif /* INC_STM32F407XX_H_ */
